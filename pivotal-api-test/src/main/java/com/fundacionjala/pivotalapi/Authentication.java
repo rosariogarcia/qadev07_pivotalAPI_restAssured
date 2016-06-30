@@ -5,11 +5,14 @@ import com.jayway.restassured.specification.RequestSpecification;
 import static com.jayway.restassured.RestAssured.baseURI;
 import static com.jayway.restassured.RestAssured.given;
 
-public class Authentication {
+public final class Authentication {
 
+    private static final String TYPE_HEADER = "X-TrackerToken";
+    private static final String CONTENT_TYPE = "application/json";
     private static Authentication instance;
 
     private RequestSpecification requestSpecification;
+
     private Authentication() {
         initApi();
     }
@@ -23,9 +26,9 @@ public class Authentication {
 
     private void initApi() {
         baseURI = PropertiesInfo.getInstance().getBaseUrl();
-        requestSpecification = given().relaxedHTTPSValidation()
+        requestSpecification = given().contentType(CONTENT_TYPE).relaxedHTTPSValidation()
                 .proxy(PropertiesInfo.getInstance().getProxy())
-                .header("X-TrackerToken", PropertiesInfo.getInstance().getToken());
+                .header(TYPE_HEADER, PropertiesInfo.getInstance().getToken());
     }
 
     public RequestSpecification getRequestSpecification() {

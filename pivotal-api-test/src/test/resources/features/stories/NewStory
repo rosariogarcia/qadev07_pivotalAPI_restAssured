@@ -1,7 +1,0 @@
-Feature: Stories
-
-  Scenario: Create a new story
-    Given I have a projectID of pivotal tracker
-    And I have the name to new story
-    When I send a POST request to /projects/projectID/stories to Stories endpoint
-    Then I should expect the status code 200 for post request to Stories endpoint
