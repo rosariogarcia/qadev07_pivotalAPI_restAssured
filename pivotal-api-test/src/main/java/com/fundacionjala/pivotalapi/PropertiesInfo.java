@@ -38,11 +38,16 @@ public class PropertiesInfo {
     private String getProperty(String propertyKey) {
         return properties.getProperty(propertyKey);
     }
-    public String getBaseUrl(){
+
+    public String getBaseUrl() {
         return getProperty("urlApi");
     }
 
-    public String getToken(){
+    public String getToken() {
         return getProperty("token");
+    }
+
+    public String getProxy() {
+        return getProperty("proxy");
     }
 }

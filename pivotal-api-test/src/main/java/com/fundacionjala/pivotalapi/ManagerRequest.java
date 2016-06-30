@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 /**
  * Created by RosarioGarcia on 6/28/2016.
  */
-public class Request {
+public class ManagerRequest {
 
     public static Response getRequest(String endpoint){
         return Authentication.getInstance().getRequestSpecification().when().get(endpoint);
