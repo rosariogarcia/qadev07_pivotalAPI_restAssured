@@ -1,0 +1,5 @@
+Feature: New Project
+  Scenario : Create new project
+    Given I have set a connection to pivotal tracker API
+    When I send a POST request to /projects with name project
+    Then I expect status code 200
