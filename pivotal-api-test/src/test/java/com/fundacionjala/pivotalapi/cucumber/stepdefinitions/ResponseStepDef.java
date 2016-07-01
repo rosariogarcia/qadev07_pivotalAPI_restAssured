@@ -16,8 +16,8 @@ public class ResponseStepDef {
 
     @Then("^I expect status code (\\d+)$")
     public void iExpectStatusCode(int statusCode) {
-        System.out.println(response.prettyPrint());
-        System.out.println(response.jsonPath().get("name"));
+        System.out.println(response);
         assertEquals(statusCode, response.statusCode());
     }
+
 }

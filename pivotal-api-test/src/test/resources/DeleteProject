@@ -1,0 +1,10 @@
+Feature: Delete project
+
+  Background: Create a project
+    Given I send a POST request to /projects with:
+      | name   | pro |
+      | public | true  |
+
+  Scenario: Delete a project
+    Given I send a DELETE request to /projects with project ID
+    Then I expect status code 204

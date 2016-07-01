@@ -1,0 +1,12 @@
+Feature: Create new story in project from pivotal tracker
+
+  Background: Create Project
+    Given I send a POST request to /projects with:
+      | name   | test_project_to7 |
+      | public | true             |
+
+  Scenario: Create new story
+    Given I send a POST request to /stories with:
+      | name     | new_Story |
+      | estimate | 1         |
+    Then I expect status code 200
