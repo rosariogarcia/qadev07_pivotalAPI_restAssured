@@ -2,6 +2,7 @@ package com.fundacionjala.pivotalapi;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 import java.util.Map;
@@ -24,17 +25,19 @@ public final class RequestManager {
     public static Response postRequest(String endpoint, Map<String, Object> parameters) {
         JsonParser jsonParser = new JsonParser();
         final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
-        LOG.warn("RESPONSE POST REQUEST"+jsonObject);
-        return REQUEST_SPECIFICATION.body(jsonObject).when().post(endpoint);
+        LOG.info("RESPONSE POST REQUEST"+jsonObject);
+        return REQUEST_SPECIFICATION.contentType(ContentType.JSON).body(jsonObject).when().post(endpoint);
     }
 
     public static Response putRequest(String endpoint, Map<String, Object> parameters) {
         JsonParser jsonParser = new JsonParser();
-        return REQUEST_SPECIFICATION.body(parameters).when().put(endpoint);
+        final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
+        LOG.warn("RESPONSE PUT REQUEST"+jsonObject);
+        return REQUEST_SPECIFICATION.contentType(ContentType.JSON).body(parameters).when().put(endpoint);
     }
 
     public static Response deleteRequest(String endpoint) {
-        return REQUEST_SPECIFICATION.body("").when().delete(endpoint);
+        return REQUEST_SPECIFICATION.when().delete(endpoint);
     }
 }
 

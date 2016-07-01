@@ -2,6 +2,6 @@ Feature: Create new project in pivotal tracker
 
   Scenario: Create new project
     Given I send a POST request to /projects with:
-      | name   | test_project_ro |
+      | name   | test_project_new1 |
       | public | true            |
     Then I expect status code 200

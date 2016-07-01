@@ -2,11 +2,12 @@ Feature: Create new story in project from pivotal tracker
 
   Background: Create Project
     Given I send a POST request to /projects with:
-      | name   | test_project_to7 |
+      | name   | test_project_to12 |
       | public | true             |
+    And Store as Project1
 
   Scenario: Create new story
-    Given I send a POST request to /stories with:
+    Given I send a POST request to /projects/[Project1.id]/stories with:
       | name     | new_Story |
       | estimate | 1         |
     Then I expect status code 200
