@@ -26,7 +26,7 @@ public final class Authentication {
     private void initApi() {
         baseURI = PropertiesInfo.getInstance().getBaseUrl();
         requestSpecification = given().relaxedHTTPSValidation()
-                .proxy(PropertiesInfo.getInstance().getProxy())
+               // .proxy(PropertiesInfo.getInstance().getProxy())
                 .header(TYPE_HEADER, PropertiesInfo.getInstance().getToken());
     }
 

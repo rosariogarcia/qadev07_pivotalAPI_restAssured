@@ -2,14 +2,16 @@ Feature: Update a story in project from pivotal tracker
 
   Background: Create Project
     Given I send a POST request to /projects with:
-      | name   | test_project_to9 |
+      | name   | test_project_to36 |
       | public | true             |
+    And Store as Project1
 
-    And I send a POST request to /stories with:
+    Given I send a POST request to /projects/[Project1.id]/stories with:
       | name     | new_Story |
       | estimate | 1         |
+    And Store as Storie1
 
   Scenario: Edit a story
-    Given I send a PUT request to /stories with:
+    Given I send a PUT request to /projects/[Storie1.project_id]/stories/[Storie1.id] with:
       | name | name_set |
     Then I expect status code 200
