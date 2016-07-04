@@ -1,6 +1,7 @@
 package com.fundacionjala.pivotalapi.cucumber.stepdefinitions;
 
 import com.jayway.restassured.response.Response;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 
 import static org.junit.Assert.assertEquals;
@@ -9,8 +10,9 @@ import static org.junit.Assert.assertEquals;
  * Created by RosarioGarcia on 6/30/2016.
  */
 public class ResponseStepDef {
-    Response response;
-    public ResponseStepDef(RequestStepDef requestStepDef){
+    private Response response;
+
+    public ResponseStepDef(RequestStepDef requestStepDef) {
         this.response = requestStepDef.getResponse();
     }
 
@@ -19,4 +21,8 @@ public class ResponseStepDef {
         assertEquals(statusCode, response.statusCode());
     }
 
+    @And("^I expect that name be equals to (.*)")
+    public void iExpectThatNameBeEqualsTo(String expectedName) {
+        assertEquals(expectedName, response.jsonPath().get("name"));
+    }
 }

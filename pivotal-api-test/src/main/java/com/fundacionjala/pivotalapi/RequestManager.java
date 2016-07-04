@@ -37,7 +37,7 @@ public final class RequestManager {
     }
 
     public static Response deleteRequest(String endpoint) {
-        return REQUEST_SPECIFICATION.when().delete(endpoint);
+        return REQUEST_SPECIFICATION.body("").when().delete(endpoint);
     }
 }
 
