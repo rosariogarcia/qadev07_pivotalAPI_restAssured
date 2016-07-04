@@ -9,6 +9,10 @@ import java.util.Properties;
  * Created by RosarioGarcia on 6/29/2016.
  */
 public class PropertiesInfo {
+    private static final String PIVOTAL_PROPERTIES = "pivotal.properties";
+    private static final String URL_API = "urlApi";
+    private static final String TOKEN = "token";
+    private static final String PROXY = "proxy";
     private static PropertiesInfo instance;
 
     private Properties properties;
@@ -19,7 +23,7 @@ public class PropertiesInfo {
 
     public static PropertiesInfo getInstance() {
         if (instance == null) {
-            return new PropertiesInfo();
+            instance = new PropertiesInfo();
         }
         return instance;
     }
@@ -27,7 +31,7 @@ public class PropertiesInfo {
     private void loadProperties() {
         properties = new Properties();
         try {
-            FileInputStream fileInputStream = new FileInputStream("pivotal.properties");
+            FileInputStream fileInputStream = new FileInputStream(PIVOTAL_PROPERTIES);
             properties.load(fileInputStream);
             fileInputStream.close();
         } catch (FileNotFoundException e) {
@@ -40,14 +44,14 @@ public class PropertiesInfo {
     }
 
     public String getBaseUrl() {
-        return getProperty("urlApi");
+        return getProperty(URL_API);
     }
 
     public String getToken() {
-        return getProperty("token");
+        return getProperty(TOKEN);
     }
 
     public String getProxy() {
-        return getProperty("proxy");
+        return getProperty(PROXY);
     }
 }

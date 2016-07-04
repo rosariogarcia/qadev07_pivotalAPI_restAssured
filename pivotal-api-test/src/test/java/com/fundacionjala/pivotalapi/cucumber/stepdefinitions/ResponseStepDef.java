@@ -21,8 +21,8 @@ public class ResponseStepDef {
         assertEquals(statusCode, response.statusCode());
     }
 
-    @And("^I expect that name be equals to (.*)")
-    public void iExpectThatNameBeEqualsTo(String expectedName) {
+    @And("^I expect that (.*) be equals to (.*)")
+    public void iExpectThatNameBeEqualsTo(String attrib, String expectedName) {
         assertEquals(expectedName, response.jsonPath().get("name"));
     }
 }

@@ -1,16 +1,15 @@
 package com.fundacionjala.pivotalapi;
 
-import com.jayway.restassured.specification.RequestSpecification;
+import com.jayway.restassured.builder.RequestSpecBuilder;
 
 import static com.jayway.restassured.RestAssured.baseURI;
-import static com.jayway.restassured.RestAssured.given;
 
 public final class Authentication {
 
     private static final String TYPE_HEADER = "X-TrackerToken";
     private static Authentication instance;
 
-    private RequestSpecification requestSpecification;
+    private static RequestSpecBuilder REQUEST_SPECIFICATION;
 
     private Authentication() {
         initApi();
@@ -25,12 +24,13 @@ public final class Authentication {
 
     private void initApi() {
         baseURI = PropertiesInfo.getInstance().getBaseUrl();
-        requestSpecification = given().relaxedHTTPSValidation()
-                .proxy(PropertiesInfo.getInstance().getProxy())
-                .header(TYPE_HEADER, PropertiesInfo.getInstance().getToken());
+        REQUEST_SPECIFICATION = new RequestSpecBuilder()
+                .setRelaxedHTTPSValidation()
+                .setProxy(PropertiesInfo.getInstance().getProxy())
+                .addHeader(TYPE_HEADER, PropertiesInfo.getInstance().getToken());
     }
 
-    public RequestSpecification getRequestSpecification() {
-        return requestSpecification;
+    public RequestSpecBuilder getRequestSpecification() {
+        return REQUEST_SPECIFICATION;
     }
 }
