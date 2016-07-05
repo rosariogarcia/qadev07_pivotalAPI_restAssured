@@ -1,48 +1,70 @@
 package com.fundacionjala.pivotalapi;
 
-import java.util.Map;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
+import java.util.Map;
 import org.apache.log4j.Logger;
 
 import static com.jayway.restassured.RestAssured.given;
 
 /**
- * Created by RosarioGarcia on 6/28/2016.
+ * This class is used to make request to pivotal API
+ *
+ * @author RosarioGarcia
  */
 public final class RequestManager {
 
     private static final RequestSpecification REQUEST_SPECIFICATION = Authentication.getInstance().getRequestSpecification();
     private static Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
-    private RequestManager(){
+
+    /**
+     * Private constuctor class to avoid
+     * a new instance from anothes class
+     */
+    private RequestManager() {
     }
 
+    /**
+     * Method to make a Get request to pivotal API
+     *
+     * @param endpoint
+     * @return requestSpecification
+     */
     public static Response getRequest(String endpoint) {
+        LOGGER.info("GET request to: " + endpoint);
         return given().spec(REQUEST_SPECIFICATION).when().get(endpoint);
     }
 
+    /**
+     * Method to make a Post request to pivotal API
+     *
+     * @param endpoint
+     * @return requestSpecification
+     */
     public static Response postRequest(String endpoint, Map<String, Object> parameters) {
-        JsonParser jsonParser = new JsonParser();
-        final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
-        LOGGER.info("RESPONSE POST REQUEST"+jsonObject);
-        return given().spec(REQUEST_SPECIFICATION).contentType(ContentType.JSON).body(jsonObject).when().post(endpoint);
+        LOGGER.info("POST request to: " + endpoint + " with: " + parameters);
+        return given().spec(REQUEST_SPECIFICATION).params(parameters).when().post(endpoint);
     }
 
+    /**
+     * Method to make a Put request to pivotal API
+     *
+     * @param endpoint
+     * @return requestSpecification
+     */
     public static Response putRequest(String endpoint, Map<String, Object> parameters) {
-        JsonParser jsonParser = new JsonParser();
-        final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
-        LOGGER.info("RESPONSE PUT REQUEST"+jsonObject);
-      //  given().spec(REQUEST_SPECIFICATION).contentType();
-        return given().spec(REQUEST_SPECIFICATION).contentType(ContentType.JSON).body(parameters).when().put(endpoint);
+        LOGGER.info("PUT request to: " + endpoint + " with: " + parameters);
+        return given().spec(REQUEST_SPECIFICATION).params(parameters).when().put(endpoint);
     }
 
+    /**
+     * Method to make a Delete request to pivotal API
+     *
+     * @param endpoint
+     * @return requestSpecification
+     */
     public static Response deleteRequest(String endpoint) {
-
-        LOGGER.info("RESPONSE DELETE REQUEST"+endpoint);
+        LOGGER.info("DELETE request to: " + endpoint);
         return given().spec(REQUEST_SPECIFICATION).when().delete(endpoint);
     }
 }

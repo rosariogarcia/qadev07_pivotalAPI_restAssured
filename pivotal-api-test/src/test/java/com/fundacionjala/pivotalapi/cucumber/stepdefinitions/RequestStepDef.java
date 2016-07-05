@@ -31,7 +31,7 @@ public class RequestStepDef {
 
     @And("^Store as (.*)$")
     public void storeAs(String key) {
-        LocalStore.setMapResponse(key, response);
+        LocalStore.addResponse(key, response);
     }
 
     public Response getResponse() {
