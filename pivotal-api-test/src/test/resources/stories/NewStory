@@ -2,14 +2,14 @@ Feature: Create new story in project from pivotal tracker
 
   Background: Create Project
     Given I send a POST request to /projects with:
-      | name   | test_project |
+      | name   | projectTest |
       | public | true              |
     And Store as Project1
 
 @deleteProjectStory
   Scenario: Create new story
     Given I send a POST request to /projects/[Project1.id]/stories with:
-      | name     | new_Story |
+      | name     | newStory |
       | estimate | 1         |
     Then I expect status code 200
-    And I expect that name be equals to new_Story
+    And I expect that name be equals to newStory

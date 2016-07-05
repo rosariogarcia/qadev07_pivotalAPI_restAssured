@@ -1,12 +1,12 @@
 package com.fundacionjala.pivotalapi;
 
+import java.util.Map;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
-import java.util.Map;
 import org.apache.log4j.Logger;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -16,8 +16,8 @@ import static com.jayway.restassured.RestAssured.given;
  */
 public final class RequestManager {
 
-    private static final RequestSpecBuilder REQUEST_SPECIFICATION = Authentication.getInstance().getRequestSpecification();
-    private static Logger LOG = Logger.getLogger(RequestManager.class.getName());
+    private static final RequestSpecification REQUEST_SPECIFICATION = Authentication.getInstance().getRequestSpecification();
+    private static Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
     private RequestManager(){
     }
 
@@ -28,21 +28,21 @@ public final class RequestManager {
     public static Response postRequest(String endpoint, Map<String, Object> parameters) {
         JsonParser jsonParser = new JsonParser();
         final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
-        LOG.info("RESPONSE POST REQUEST"+jsonObject);
-        return REQUEST_SPECIFICATION.contentType(ContentType.JSON).body(jsonObject).when().post(endpoint);
+        LOGGER.info("RESPONSE POST REQUEST"+jsonObject);
+        return given().spec(REQUEST_SPECIFICATION).contentType(ContentType.JSON).body(jsonObject).when().post(endpoint);
     }
 
     public static Response putRequest(String endpoint, Map<String, Object> parameters) {
         JsonParser jsonParser = new JsonParser();
         final JsonObject jsonObject = jsonParser.parse(parameters.toString()).getAsJsonObject();
-        LOG.info("RESPONSE PUT REQUEST"+jsonObject);
+        LOGGER.info("RESPONSE PUT REQUEST"+jsonObject);
       //  given().spec(REQUEST_SPECIFICATION).contentType();
         return given().spec(REQUEST_SPECIFICATION).contentType(ContentType.JSON).body(parameters).when().put(endpoint);
     }
 
     public static Response deleteRequest(String endpoint) {
 
-        LOG.info("RESPONSE DELETE REQUEST"+endpoint);
+        LOGGER.info("RESPONSE DELETE REQUEST"+endpoint);
         return given().spec(REQUEST_SPECIFICATION).when().delete(endpoint);
     }
 }

@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * Created by RosarioGarcia on 6/29/2016.
  */
 public class PropertiesInfo {
+    private static final Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
     private static final String PIVOTAL_PROPERTIES = "pivotal.properties";
     private static final String URL_API = "urlApi";
     private static final String TOKEN = "token";
@@ -34,8 +37,11 @@ public class PropertiesInfo {
             FileInputStream fileInputStream = new FileInputStream(PIVOTAL_PROPERTIES);
             properties.load(fileInputStream);
             fileInputStream.close();
+            LOGGER.info("Properties file loaded succesfully.");
         } catch (FileNotFoundException e) {
+            LOGGER.fatal("Properties file not found."+e.getMessage());
         } catch (IOException e) {
+            LOGGER.fatal("Properties file error."+e.getMessage());
         }
     }
 
