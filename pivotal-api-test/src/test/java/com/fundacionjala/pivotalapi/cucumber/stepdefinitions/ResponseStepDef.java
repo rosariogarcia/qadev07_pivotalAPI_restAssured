@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
  * Created by RosarioGarcia on 6/30/2016.
  */
 public class ResponseStepDef {
+
     private Response response;
 
     public ResponseStepDef(RequestStepDef requestStepDef) {

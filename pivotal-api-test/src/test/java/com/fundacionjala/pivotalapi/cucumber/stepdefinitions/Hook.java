@@ -1,18 +1,25 @@
 package com.fundacionjala.pivotalapi.cucumber.stepdefinitions;
 
 
+import com.fundacionjala.pivotalapi.PropertiesInfo;
 import com.fundacionjala.pivotalapi.RequestManager;
 import com.jayway.restassured.response.Response;
 import cucumber.api.java.After;
+import org.apache.log4j.Logger;
 
 /**
  * Created by RosarioGarcia on 7/4/2016.
  */
 public class Hook {
-    Response response;
+
+
+    private static final Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
+
+    private Response response;
 
     public Hook(RequestStepDef requestStepDef) {
         this.response = requestStepDef.getResponse();
+        LOGGER.info("RESPONSE in Hook: " + response.prettyPrint());
     }
 
     @After("@deleteProject")

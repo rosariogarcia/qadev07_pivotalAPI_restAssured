@@ -9,7 +9,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 
 /**
- * Created by RosarioGarcia on 6/30/2016.
+ * @author RosarioGarcia
  */
 public class RequestStepDef {
     private Response response;
