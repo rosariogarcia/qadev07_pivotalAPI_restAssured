@@ -1,11 +1,10 @@
 package com.fundacionjala.pivotalapi;
 
+import com.jayway.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.jayway.restassured.response.Response;
 import org.apache.log4j.Logger;
 
 /**
@@ -41,8 +40,9 @@ public class LocalStore {
             Pattern valueEndpoint = Pattern.compile(REGEX_VALUE);
             Matcher mValue = valueEndpoint.matcher(endpoint);
             while (mKey.find() && mValue.find()) {
-                String key = mKey.group(1);
-                String value = mValue.group(1);
+                final int groupRegex = 1;
+                String key = mKey.group(groupRegex);
+                String value = mValue.group(groupRegex);
                 endpoint = endpoint.replaceFirst(REGEX_REPLACE, mapResponse.get(key).jsonPath().get(value).toString());
             }
         }
