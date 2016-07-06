@@ -50,7 +50,7 @@ public final class Authentication {
         baseURI = PropertiesInfo.getInstance().getBaseUrl();
         requestSpecification = new RequestSpecBuilder()
                 .setRelaxedHTTPSValidation()
-                .setProxy(PropertiesInfo.getInstance().getProxy())
+                //.setProxy(PropertiesInfo.getInstance().getProxy())
                 .addHeader(TYPE_HEADER, PropertiesInfo.getInstance().getToken())
                 .build();
     }

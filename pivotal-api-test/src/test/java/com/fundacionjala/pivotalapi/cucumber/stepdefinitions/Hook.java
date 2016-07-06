@@ -14,6 +14,7 @@ public class Hook {
 
 
     private static final Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
+    public static final String BASE_PROJECTS = "/projects/";
 
     private Response response;
 
@@ -24,11 +25,11 @@ public class Hook {
 
     @After("@deleteProject")
     public void tearDownProject() {
-        response = RequestManager.deleteRequest("/projects/" + response.jsonPath().get("id"));
+        response = RequestManager.deleteRequest(BASE_PROJECTS + response.jsonPath().get("id"));
     }
 
     @After("@deleteProjectStory")
     public void tearDownStory() {
-        response = RequestManager.deleteRequest("/projects/" + response.jsonPath().get("project_id"));
+        response = RequestManager.deleteRequest(BASE_PROJECTS + response.jsonPath().get("project_id"));
     }
 }

@@ -15,17 +15,17 @@ public class RequestStepDef {
     private Response response;
 
     @Given("^I send a POST request to (.*) with:$")
-    public void iSendAPOSTRequestToProjects(String endpoint, Map<String, Object> values) {
+    public void iSendAPOSTRequestToEndpoint(String endpoint, Map<String, Object> values) {
         response = RequestManager.postRequest(LocalStore.formatEndpoint(endpoint), values);
     }
 
     @Given("^I send a PUT request to (.*) with:$")
-    public void iSendAPUTRequestToProjectsIdWith(String endpoint, Map<String, Object> values) {
+    public void iSendAPUTRequestToEndpointWith(String endpoint, Map<String, Object> values) {
         response = RequestManager.putRequest(LocalStore.formatEndpoint(endpoint), values);
     }
 
     @Given("^I send a DELETE request to (.*)$")
-    public void iSendADELETERequestToProjects(String endpoint) {
+    public void iSendADELETERequestToEndpoint(String endpoint) {
         response = RequestManager.deleteRequest(LocalStore.formatEndpoint(endpoint));
     }
 

@@ -23,7 +23,7 @@ public class ResponseStepDef {
     }
 
     @And("^I expect that (.*) be equals to (.*)")
-    public void iExpectThatNameBeEqualsTo(String attribute, String expectedValue) {
+    public void iExpectThatAttributeBeEqualsToValue(String attribute, String expectedValue) {
         assertEquals(expectedValue, response.jsonPath().get(attribute));
     }
 }

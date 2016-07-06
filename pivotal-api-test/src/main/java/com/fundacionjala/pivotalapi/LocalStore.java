@@ -16,6 +16,9 @@ import org.apache.log4j.Logger;
  */
 public class LocalStore {
     private static final Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
+    public static final String REGEX_KEY = "\\[(.*?)\\.";
+    public static final String REGEX_VALUE = "\\.(.*?)\\]";
+    public static final String REGEX_REPLACE = "\\[(.*?)\\]";
     private static Map<String, Response> mapResponse;
 
     /**
@@ -33,14 +36,14 @@ public class LocalStore {
      */
     public static String formatEndpoint(String endpoint) {
         if (endpoint.contains("[")) {
-            Pattern keyEndpoint = Pattern.compile("\\[(.*?)\\.");
+            Pattern keyEndpoint = Pattern.compile(REGEX_KEY);
             Matcher mKey = keyEndpoint.matcher(endpoint);
-            Pattern valueEndpoint = Pattern.compile("\\.(.*?)\\]");
+            Pattern valueEndpoint = Pattern.compile(REGEX_VALUE);
             Matcher mValue = valueEndpoint.matcher(endpoint);
             while (mKey.find() && mValue.find()) {
                 String key = mKey.group(1);
                 String value = mValue.group(1);
-                endpoint = endpoint.replaceFirst("\\[(.*?)\\]", mapResponse.get(key).jsonPath().get(value).toString());
+                endpoint = endpoint.replaceFirst(REGEX_REPLACE, mapResponse.get(key).jsonPath().get(value).toString());
             }
         }
         LOGGER.info("Endpoint to make request: " + endpoint);
@@ -69,6 +72,6 @@ public class LocalStore {
     public static void addResponse(String key, Response response) {
         mapResponse = new HashMap<String, Response>();
         mapResponse.put(key, response);
-        LOGGER.info("Response on map: " + mapResponse);
+        LOGGER.info("Response on map: " + mapResponse.toString());
     }
 }
