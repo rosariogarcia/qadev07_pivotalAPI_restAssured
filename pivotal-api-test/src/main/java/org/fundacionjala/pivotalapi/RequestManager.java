@@ -1,8 +1,9 @@
-package com.fundacionjala.pivotalapi;
+package org.fundacionjala.pivotalapi;
+
+import java.util.Map;
 
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
-import java.util.Map;
 import org.apache.log4j.Logger;
 
 import static com.jayway.restassured.RestAssured.given;

@@ -1,6 +1,5 @@
-package com.fundacionjala.pivotalapi.cucumber.stepdefinitions;
+package org.fundacionjala.pivotalapi.cucumber.stepdefinitions;
 
-import com.jayway.restassured.response.Response;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 
@@ -11,19 +10,19 @@ import static org.junit.Assert.assertEquals;
  */
 public class ResponseStepDef {
 
-    private Response response;
+    private RequestStepDef requestStepDef;
 
     public ResponseStepDef(RequestStepDef requestStepDef) {
-        this.response = requestStepDef.getResponse();
+        this.requestStepDef = requestStepDef;
     }
 
     @Then("^I expect status code (\\d+)$")
     public void iExpectStatusCode(int statusCode) {
-        assertEquals(statusCode, response.statusCode());
+        assertEquals(statusCode, requestStepDef.getResponse().statusCode());
     }
 
     @And("^I expect that (.*) be equals to (.*)")
     public void iExpectThatAttributeBeEqualsToValue(String attribute, String expectedValue) {
-        assertEquals(expectedValue, response.jsonPath().get(attribute));
+        assertEquals(expectedValue, requestStepDef.getResponse().path(attribute));
     }
 }

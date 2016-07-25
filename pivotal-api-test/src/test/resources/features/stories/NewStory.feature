@@ -4,9 +4,10 @@ Feature: Create new story in project from pivotal tracker
     Given I send a POST request to /projects with:
       | name   | projectTest |
       | public | true        |
+    Then I expect status code 200
     And Store as Project1
 
-  @deleteProjectStory
+  @story
   Scenario: Create new story
     Given I send a POST request to /projects/[Project1.id]/stories with:
       | name     | newStory |

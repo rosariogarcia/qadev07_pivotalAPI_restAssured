@@ -1,4 +1,4 @@
-package com.fundacionjala.pivotalapi;
+package org.fundacionjala.pivotalapi;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

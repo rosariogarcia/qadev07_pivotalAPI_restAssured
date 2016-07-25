@@ -1,11 +1,13 @@
-package com.fundacionjala.pivotalapi;
+package org.fundacionjala.pivotalapi;
 
-import com.jayway.restassured.response.Response;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.jayway.restassured.response.Response;
 import org.apache.log4j.Logger;
+
+import static org.fundacionjala.pivotalapi.Constants.RESPONSE_VALUES;
 
 /**
  * In this class build the Map of responses
@@ -15,10 +17,9 @@ import org.apache.log4j.Logger;
  */
 public class LocalStore {
     private static final Logger LOGGER = Logger.getLogger(PropertiesInfo.class);
-    public static final String REGEX_KEY = "\\[(.*?)\\.";
-    public static final String REGEX_VALUE = "\\.(.*?)\\]";
-    public static final String REGEX_REPLACE = "\\[(.*?)\\]";
-    private static Map<String, Response> mapResponse;
+    private static final String REGEX_KEY = "\\[(.*?)\\.";
+    private static final String REGEX_VALUE = "\\.(.*?)\\]";
+    private static final String REGEX_REPLACE = "\\[(.*?)\\]";
 
     /**
      * private Constructor class for avoid a new instance
@@ -43,7 +44,7 @@ public class LocalStore {
                 final int groupRegex = 1;
                 String key = mKey.group(groupRegex);
                 String value = mValue.group(groupRegex);
-                endpoint = endpoint.replaceFirst(REGEX_REPLACE, mapResponse.get(key).jsonPath().get(value).toString());
+                endpoint = endpoint.replaceFirst(REGEX_REPLACE, RESPONSE_VALUES.get(key).jsonPath().get(value).toString());
             }
         }
         LOGGER.info("Endpoint to make request: " + endpoint);
@@ -56,7 +57,7 @@ public class LocalStore {
      * @return mapResponse
      */
     public static Map<String, Response> getMapResponse() {
-        return mapResponse;
+        return RESPONSE_VALUES;
     }
 
     /**
@@ -70,8 +71,7 @@ public class LocalStore {
      * @param response
      */
     public static void addResponse(String key, Response response) {
-        mapResponse = new HashMap<String, Response>();
-        mapResponse.put(key, response);
-        LOGGER.info("Response on map: " + mapResponse.toString());
+        RESPONSE_VALUES.put(key, response);
+        LOGGER.info("Response on map: " + RESPONSE_VALUES.toString());
     }
 }
