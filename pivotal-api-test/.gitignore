@@ -1,0 +1,4 @@
+/.idea/
+/ cucumber-html-reports/
+/log/
+*.iml
